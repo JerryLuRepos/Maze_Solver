@@ -167,14 +167,12 @@ class flood_maze(create_maze):
         self.find_goal()
 
 
+if __name__ == '__main__':
+    get_maze = create_maze(16, 16, seed=1)
+    get_maze.add_goal()
+    get_maze.create_valid_path(visualize=False)
+    get_maze.create_walls(max_cycle_len=0, visualize=True)
+    create_maze_kwargs = vars(get_maze)
 
-
-
-get_maze = create_maze(16, 16, seed=1)
-get_maze.add_goal()
-get_maze.create_valid_path(visualize=False)
-get_maze.create_walls(max_cycle_len=0, visualize=True)
-create_maze_kwargs = vars(get_maze)
-
-flood = flood_maze(**create_maze_kwargs)
-flood.main()
+    flood = flood_maze(**create_maze_kwargs)
+    flood.main()

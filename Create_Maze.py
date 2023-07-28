@@ -270,9 +270,8 @@ class create_maze:
                 print(row)
 
 
-
-# for i in range(5):
-#     get_maze = create_maze(16, 16, seed=1)
-#     get_maze.add_goal()
-#     get_maze.create_valid_path(visualize=False)
-#     get_maze.create_walls(max_cycle_len=0, visualize=True)
+if __name__ == '__main__':
+    get_maze = create_maze(16, 16, seed=1)
+    get_maze.add_goal()
+    get_maze.create_valid_path(visualize=False)
+    get_maze.create_walls(max_cycle_len=0, visualize=True)

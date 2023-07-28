@@ -184,30 +184,26 @@ class q_learning(create_maze):
                 steps += 1
 
 
+if __name__ == '__main__':
+    get_maze = create_maze(16, 16, seed=2)
+    get_maze.add_goal()
+    get_maze.create_valid_path(visualize=False)
+    get_maze.create_walls(max_cycle_len=0, visualize=False)
+    create_maze_kwargs = vars(get_maze)
 
+    qlearn = q_learning(**create_maze_kwargs)
+    qlearn.convert_maze_to_rewards()
 
+    # Validation
+    success_ct = 0
+    for epoch in range(100):
+        print('Epoch {}'.format(epoch))
+        qlearn.q_train()
+        start_point = qlearn.start_point
+        start_row, start_col = start_point[0], start_point[1]
+        qlearn.get_shortest_path(start_row, start_col)
+        qlearn.find_shortest_path_bfs()
+        if len(qlearn.q_shortest_path) == len(qlearn.bfs_shortest_path):
+            success_ct += 1
 
-
-
-# get_maze = create_maze(16, 16, seed=2)
-# get_maze.add_goal()
-# get_maze.create_valid_path(visualize=False)
-# get_maze.create_walls(max_cycle_len=0, visualize=False)
-# create_maze_kwargs = vars(get_maze)
-#
-# qlearn = q_learning(**create_maze_kwargs)
-# qlearn.convert_maze_to_rewards()
-#
-# # Validation
-# success_ct = 0
-# for epoch in range(100):
-#     print('Epoch {}'.format(epoch))
-#     qlearn.q_train()
-#     start_point = qlearn.start_point
-#     start_row, start_col = start_point[0], start_point[1]
-#     qlearn.get_shortest_path(start_row, start_col)
-#     qlearn.find_shortest_path_bfs()
-#     if len(qlearn.q_shortest_path) == len(qlearn.bfs_shortest_path):
-#         success_ct += 1
-#
-# print(success_ct/100)
+    print(success_ct/100)
